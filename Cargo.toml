@@ -2,7 +2,7 @@
 name = "tide-acme"
 version = "0.1.0"
 authors = ["Josh Triplett <josh@joshtriplett.org>"]
-description = "Serve HTTPS using Tide with automatic certificates, via Let's Encrypt and ACME tls-alpn-01 challenges"
+description = "Automatic HTTPS certificates for Tide, via Let's Encrypt and ACME tls-alpn-01 challenges"
 keywords = ["acme", "autocert", "https", "tls", "alpn"]
 edition = "2018"
 repository = "https://github.com/http-rs/tide-acme"
