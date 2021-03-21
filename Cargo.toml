@@ -1,0 +1,19 @@
+[package]
+name = "tide-acme"
+version = "0.1.0"
+authors = ["Josh Triplett <josh@joshtriplett.org>"]
+description = "Serve HTTPS using Tide with automatic certificates, via Let's Encrypt and ACME tls-alpn-01 challenges"
+keywords = ["acme", "autocert", "https", "tls", "alpn"]
+edition = "2018"
+repository = "https://github.com/http-rs/tide-acme"
+license = "MIT OR Apache-2.0"
+categories = ["web-programming::http-server", "web-programming"]
+
+[dependencies]
+async-std = "1.9.0"
+async-trait = "0.1.48"
+rustls-acme = "0.1.4"
+tide-rustls = "0.3.0"
+
+[dev-dependencies]
+tide = "0.16.0"
