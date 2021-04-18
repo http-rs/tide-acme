@@ -12,7 +12,7 @@ categories = ["web-programming::http-server", "web-programming"]
 [dependencies]
 async-std = "1.9.0"
 async-trait = "0.1.48"
-rustls-acme = "0.1.4"
+rustls-acme = "0.1.6"
 tide-rustls = "0.3.0"
 
 [dev-dependencies]

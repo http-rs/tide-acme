@@ -15,6 +15,7 @@
 //!     tide_rustls::TlsListener::build().addrs("0.0.0.0:443").acme(
 //!         AcmeConfig::new()
 //!             .domains(vec!["domain.example".to_string()])
+//!             .contact_email("admin@example.org")
 //!             .cache_dir("/srv/example/tide-acme-cache-dir"),
 //!     ),
 //! )
@@ -67,6 +68,7 @@ enum Environment {
 /// Configuration for registering a certificate via ACME.
 pub struct AcmeConfig {
     domains: Option<Vec<String>>,
+    contact: Option<String>,
     cache_dir: Option<PathBuf>,
     environment: Environment,
     server_config: Option<ServerConfig>,
@@ -79,6 +81,7 @@ impl AcmeConfig {
     pub fn new() -> Self {
         Self {
             domains: None,
+            contact: None,
             cache_dir: None,
             environment: Environment::Staging,
             server_config: None,
@@ -90,6 +93,18 @@ impl AcmeConfig {
     /// The list of domains must not be empty.
     pub fn domains(mut self, domains: Vec<String>) -> Self {
         self.domains = Some(domains);
+        self
+    }
+
+    /// Set the contact email for the ACME account.
+    ///
+    /// ACME implementations such as Let's Encrypt use this email to contact account owners to
+    /// notify them of potential issues or changes to the service. You should always set this,
+    /// especially if using production infrastructure.
+    ///
+    /// Domains such as @example.org will be rejected, so that they can be used in documentation.
+    pub fn contact_email(mut self, email: &str) -> Self {
+        self.contact = Some(format!("mailto:{}", email));
         self
     }
 
@@ -152,7 +167,7 @@ impl AcmeTlsAcceptor {
             .server_config
             .unwrap_or_else(|| ServerConfig::new(rustls::NoClientAuth::new()));
 
-        let resolver = rustls_acme::ResolvesServerCertUsingAcme::new();
+        let resolver = rustls_acme::ResolvesServerCertUsingAcme::with_contact(&config.contact);
         let acceptor = rustls_acme::TlsAcceptor::new(server_config, resolver.clone());
         async_std::task::spawn(async move {
             resolver.run(environment, domains, Some(cache_dir)).await;
