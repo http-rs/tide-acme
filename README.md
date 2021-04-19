@@ -16,6 +16,7 @@ app.listen(
     tide_rustls::TlsListener::build().addrs("0.0.0.0:443").acme(
         AcmeConfig::new()
             .domains(vec!["domain.example".to_string()])
+            .contact_email("admin@example.org")
             .cache_dir("/srv/example/tide-acme-cache-dir"),
     ),
 )
