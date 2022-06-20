@@ -1,6 +1,6 @@
 [package]
 name = "tide-acme"
-version = "0.2.0-beta.1"
+version = "0.2.0"
 authors = ["Josh Triplett <josh@joshtriplett.org>"]
 description = "Automatic HTTPS certificates for Tide, via Let's Encrypt and ACME tls-alpn-01 challenges"
 keywords = ["acme", "autocert", "https", "tls", "alpn"]
@@ -13,7 +13,7 @@ categories = ["web-programming::http-server", "web-programming"]
 async-std = "1.11.0"
 async-trait = "0.1.48"
 futures-lite = "1.12.0"
-rustls-acme = "=0.3.0-beta.4"
+rustls-acme = "0.3.0"
 tide-rustls = "0.3.0"
 tracing = { version = "0.1.34", default-features = false }
 
